@@ -1,2 +1,3 @@
 # spring-extension-bean
-Clean is good.
+
+Simple is cool. Clean is good.

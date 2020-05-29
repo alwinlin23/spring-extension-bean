@@ -19,7 +19,7 @@ public abstract class AbstractErrorDescription {
      * @param cause              extension error cause (optional)
      * @return specific extension bean exception
      */
-    public AbstractExtensionBeanException of(Class<?> extensionInterface, Class<?> extensionClass,
+    public AbstractExtensionBeanException exception(Class<?> extensionInterface, Class<?> extensionClass,
         String caseName, Throwable cause) {
         String errMsg = String.format("[%s]-%s\nDocuments:%s\nSubmit issues:%s\n",
             errorCode(), errorMessage(extensionInterface, extensionClass, caseName, cause),

@@ -69,10 +69,10 @@ public enum ErrorEnums {
     /**
      * property scanBasePackages in @EnableExtension is not set
      */
-    SCAN_BASE_PACKAGES_NOT_SET(new AbstractErrorDescription() {
+    BASE_PACKAGES_NOT_SET(new AbstractErrorDescription() {
         @Override
         protected String errorCode() {
-            return SCAN_BASE_PACKAGES_NOT_SET.name();
+            return BASE_PACKAGES_NOT_SET.name();
         }
 
         @Override
@@ -154,11 +154,25 @@ public enum ErrorEnums {
     });
 
     /**
+     * throws specific exception
+     *
+     * @param extensionInterface extension interface
+     * @param extensionClass     extension class
+     * @param caseName           case name
+     * @param cause              error cause
+     */
+    public void throwingException(Class<?> extensionInterface, Class<?> extensionClass,
+        String caseName, Throwable cause) {
+        throw this.errorDescription.exception(extensionInterface, extensionClass, caseName, cause);
+    }
+
+    /**
      * error description
      */
-    private AbstractErrorDescription errorDescription;
+    private final AbstractErrorDescription errorDescription;
 
     ErrorEnums(AbstractErrorDescription errorDescription) {
         this.errorDescription = errorDescription;
     }
+
 }
