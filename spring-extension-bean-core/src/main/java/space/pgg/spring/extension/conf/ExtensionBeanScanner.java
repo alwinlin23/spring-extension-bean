@@ -98,7 +98,7 @@ public class ExtensionBeanScanner extends ClassPathBeanDefinitionScanner {
         List<String> caseNameList = new ArrayList<>();
         Collections.addAll(caseNameList, extensionBeanAnnotation.forCase());
         if (extensionBeanAnnotation.isDefault()) {
-            caseNameList.add(ExtensionBean.DEFAULT_CASE_NAME);
+            caseNameList.add(ExtensionBean.DEFAULT_CASE);
         }
         // 1. process default case
         if (caseNameList.isEmpty()) {

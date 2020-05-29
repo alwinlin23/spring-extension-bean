@@ -49,9 +49,8 @@ public enum ErrorEnums {
         @Override
         protected String errorMessage(
             Class<?> extensionInterface, Class<?> extensionClass, String caseName, Throwable cause) {
-            return String.format("Extension bean configuration error : "
-                    + "extension class [%s], extension interface [%s] case name [%s] ",
-                extensionClass.getCanonicalName(), extensionInterface.getCanonicalName(), caseName);
+            return String.format("Extension bean configuration error : interface[%s]-case[%s]-class[%s]",
+                extensionInterface.getCanonicalName(), caseName, extensionClass.getCanonicalName());
         }
 
         @Override
@@ -107,7 +106,7 @@ public enum ErrorEnums {
             Throwable cause) {
             return String.format(
                 "Extension bean runtime error : the implementation class for interface[%s]-case[%s] is not found. "
-                    + "Set a default extension bean might help.",
+                    + "Set a default implementation extension bean might help.",
                 extensionInterface.getCanonicalName(), caseName);
         }
 
@@ -136,8 +135,8 @@ public enum ErrorEnums {
         protected String errorMessage(Class<?> extensionInterface, Class<?> extensionClass, String caseName,
             Throwable cause) {
             return String.format(
-                "Extension bean configuration error : the extension bean[%s] has not implemented the extension "
-                    + "interface[%s] mentioned in the @ExtensionBean",
+                "Extension bean configuration error : all the interfaces that [%s] has implemented "
+                    + "does not consist with the configured extension interface[%s] in the @ExtensionBean",
                 extensionClass.getCanonicalName(), extensionInterface.getCanonicalName());
         }
 
@@ -150,6 +149,30 @@ public enum ErrorEnums {
         @Override
         protected AbstractExtensionBeanException withException(String errMsg, Throwable cause) {
             return new AnnotationConfigErrorException(errMsg, cause);
+        }
+    }),
+
+    UNKNOWN_ERROR(new AbstractErrorDescription() {
+        @Override
+        protected String errorCode() {
+            return UNKNOWN_ERROR.name();
+        }
+
+        @Override
+        protected String errorMessage(Class<?> extensionInterface, Class<?> extensionClass, String caseName,
+            Throwable cause) {
+            return String.format("Unknown error : interface[%s]-case[%s]");
+        }
+
+        @Override
+        protected String docURL() {
+            //TODO 2020/5/30 2:23 上午 pgg
+            return null;
+        }
+
+        @Override
+        protected AbstractExtensionBeanException withException(String errMsg, Throwable cause) {
+            return new UnknownException(errMsg, cause);
         }
     });
 

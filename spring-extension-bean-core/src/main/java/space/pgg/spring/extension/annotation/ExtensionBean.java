@@ -35,5 +35,5 @@ public @interface ExtensionBean {
     /**
      * wired default case name to avoid unnecessary case name conflictions
      */
-    String DEFAULT_CASE_NAME = "#_DEFAULT_CASE_#";
+    String DEFAULT_CASE = "#_DEFAULT_CASE_#";
 }
