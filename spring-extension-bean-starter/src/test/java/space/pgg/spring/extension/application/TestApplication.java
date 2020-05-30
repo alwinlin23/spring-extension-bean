@@ -10,6 +10,6 @@ import space.pgg.spring.extension.annotation.EnableExtensionBean;
  * @since 2020-05-30 01:32:49
  */
 @SpringBootApplication
-@EnableExtensionBean(basePackages = "space.pgg.spring.extension")
+@EnableExtensionBean(basePackages = {"space.pgg.spring.extension", "packages.in.your.project"})
 public class TestApplication {
 }

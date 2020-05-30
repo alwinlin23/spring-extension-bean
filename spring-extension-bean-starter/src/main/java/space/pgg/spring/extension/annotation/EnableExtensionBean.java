@@ -29,6 +29,6 @@ public @interface EnableExtensionBean {
      * base packages that use extension bean    <br/>
      * something like spring's {@link ComponentScan#basePackages()}
      */
-    String basePackages();
+    String[] basePackages();
 
 }
