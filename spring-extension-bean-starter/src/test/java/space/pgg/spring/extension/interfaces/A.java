@@ -1,15 +1,15 @@
 package space.pgg.spring.extension.interfaces;
 
 /**
- * test interface C
+ * test interface A
  *
  * @author pgg
  * @since 2020-05-30 01:35:15
  */
-public interface TestInterfaceC {
+public interface A {
 
-    String sayHello(String name);
+    String sayHi(String name);
 
-    Object ojbk();
+    Object getSomeThing();
 
 }

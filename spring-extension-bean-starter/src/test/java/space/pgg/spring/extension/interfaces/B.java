@@ -6,7 +6,7 @@ package space.pgg.spring.extension.interfaces;
  * @author pgg
  * @since 2020-05-30 01:35:15
  */
-public interface TestInterfaceB {
+public interface B {
 
     String sayBye(String name);
 
