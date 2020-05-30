@@ -14,6 +14,7 @@ import org.springframework.beans.factory.support.BeanDefinitionRegistry;
 import org.springframework.context.annotation.ClassPathBeanDefinitionScanner;
 import org.springframework.core.type.filter.AnnotationTypeFilter;
 import space.pgg.spring.extension.annotation.ExtensionBean;
+import space.pgg.spring.extension.annotation.ExtensionBeans;
 import space.pgg.spring.extension.error.ErrorEnums;
 
 /**
@@ -32,12 +33,14 @@ public class ExtensionBeanScanner extends ClassPathBeanDefinitionScanner {
     @Override
     protected void registerDefaultFilters() {
         this.addIncludeFilter(new AnnotationTypeFilter(ExtensionBean.class));
+        this.addIncludeFilter(new AnnotationTypeFilter(ExtensionBeans.class));
     }
 
     @Override
     protected boolean isCandidateComponent(AnnotatedBeanDefinition beanDefinition) {
         return super.isCandidateComponent(beanDefinition) &&
-            beanDefinition.getMetadata().hasAnnotation(ExtensionBean.class.getName());
+            (beanDefinition.getMetadata().hasAnnotation(ExtensionBean.class.getName())
+                || beanDefinition.getMetadata().hasAnnotation(ExtensionBeans.class.getName()));
     }
 
     @Override

@@ -10,6 +10,6 @@ public interface B {
 
     String sayBye(String name);
 
-    Object noProb();
+    A ownsTheA();
 
 }

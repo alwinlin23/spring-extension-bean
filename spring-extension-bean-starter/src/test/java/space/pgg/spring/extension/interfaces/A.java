@@ -10,6 +10,6 @@ public interface A {
 
     String sayHi(String name);
 
-    Object getSomeThing();
+    Object giveMeSomething();
 
 }

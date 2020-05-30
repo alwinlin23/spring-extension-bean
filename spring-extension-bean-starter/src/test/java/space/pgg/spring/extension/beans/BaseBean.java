@@ -1,6 +1,6 @@
 package space.pgg.spring.extension.beans;
 
-import space.pgg.spring.extension.util.RuntimeUtils;
+import space.pgg.spring.extension.util.RuntimeUtil;
 
 /**
  * base test bean
@@ -11,7 +11,7 @@ import space.pgg.spring.extension.util.RuntimeUtils;
 public class BaseBean {
 
     public String saySomething(String name) {
-        return String.format("%s : %s", RuntimeUtils.getCurrentMethodName(), name);
+        return String.format("%s : %s", RuntimeUtil.getInvokeMethodName(), name);
     }
 
 }

@@ -3,6 +3,7 @@ package space.pgg.spring.extension.beans.a;
 import javax.annotation.Resource;
 
 import space.pgg.spring.extension.annotation.ExtensionBean;
+import space.pgg.spring.extension.beans.SomePlainBean;
 import space.pgg.spring.extension.interfaces.A;
 
 /**
@@ -15,11 +16,11 @@ import space.pgg.spring.extension.interfaces.A;
 public class TestExtensionBeanADefault extends AbstractExtensionBeanA {
 
     @Resource
-    private TestExtensionBeanA1 testExtensionBeanA1;
+    private SomePlainBean somePlainBean;
 
     @Override
-    public Object getSomeThing() {
-        return testExtensionBeanA1;
+    public Object giveMeSomething() {
+        return somePlainBean;
     }
 
 }
