@@ -101,7 +101,7 @@ public class TestApplication {
 }
 ```
 
-## 速查手册 (Quick Manual)
+## 速查手册 (Error Code Manual)
 
 | 错误事项 | 内容 |
 |---|---|
