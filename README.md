@@ -88,7 +88,7 @@ public class CompoundExtensionBean extends BaseBean implements A, B {
 
 ### step 4 : 开始玩耍吧 ( ready to play )
 
-![spring-extension-bean-demo-gif](https://wx1.sinaimg.cn/large/60c4aab5gy1gsdgfjuc4kg20l60acnpt.gif)
+![spring-extension-bean-demo-gif](src/main/resources/spring-extension-bean-gif-demo.gif)
 
 ### 最后别忘了@EnableExtensionBean ( Last but not least, don't forget the @EnableExtensionBean )
 
