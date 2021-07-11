@@ -75,7 +75,7 @@ public class CompoundExtensionBean extends BaseBean implements A, B {
 
 > JDK1.8 往后的版本, 可以写的更随意些
 >
-> Thanks to @Repeatable, we can make it even easier since JDK1.8.
+> Thanks to @Repeatable, it can be even easier since JDK1.8.
 
 ```java
 @ExtensionBean(forInterface = A.class, forCase = Case.CASE_COMPOUND),
