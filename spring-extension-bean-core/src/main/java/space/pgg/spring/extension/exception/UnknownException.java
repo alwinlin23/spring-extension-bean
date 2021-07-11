@@ -1,4 +1,4 @@
-package space.pgg.spring.extension.error;
+package space.pgg.spring.extension.exception;
 
 /**
  * Unknown exception

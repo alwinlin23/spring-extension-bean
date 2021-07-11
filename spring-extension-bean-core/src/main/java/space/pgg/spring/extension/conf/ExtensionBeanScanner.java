@@ -15,7 +15,7 @@ import org.springframework.context.annotation.ClassPathBeanDefinitionScanner;
 import org.springframework.core.type.filter.AnnotationTypeFilter;
 import space.pgg.spring.extension.annotation.ExtensionBean;
 import space.pgg.spring.extension.annotation.ExtensionBeans;
-import space.pgg.spring.extension.error.ErrorEnums;
+import space.pgg.spring.extension.exception.ErrorEnums;
 
 /**
  * annotation scanner for {@link ExtensionBean}
@@ -79,7 +79,7 @@ public class ExtensionBeanScanner extends ClassPathBeanDefinitionScanner {
         for (String caseName : caseNameList) {
             String alias = ExtensionBeanAlias.of(extensionInterface, caseName);
             if (this.getRegistry().isBeanNameInUse(alias)) {
-                ErrorEnums.DUPLICATE_CASE_NAME.throwingException(extensionInterface, beanClass, caseName, null);
+                ErrorEnums.DUPLICATE_CASE_NAME.throwsException(extensionInterface, beanClass, caseName, null);
             }
             this.getRegistry().registerAlias(holder.getBeanName(), alias);
             log.info("ExtensionBeanScanner.register extension bean[{}] for interface[{}] and case[{}].",
@@ -105,7 +105,7 @@ public class ExtensionBeanScanner extends ClassPathBeanDefinitionScanner {
         }
         // 1. process default case
         if (caseNameList.isEmpty()) {
-            ErrorEnums.CASE_NAME_NOT_CONFIGURED.throwingException(extensionInterface, beanClass, null, null);
+            ErrorEnums.CASE_NAME_NOT_CONFIGURED.throwsException(extensionInterface, beanClass, null, null);
         }
         return caseNameList;
     }
@@ -120,7 +120,7 @@ public class ExtensionBeanScanner extends ClassPathBeanDefinitionScanner {
         boolean isConsistent = ClassUtils.getAllInterfaces(beanClass).stream().map(Class::getCanonicalName)
             .anyMatch(interfaceName -> interfaceName.equals(extensionInterface.getCanonicalName()));
         if (!isConsistent) {
-            ErrorEnums.INTERFACE_CONSISTENCY_ERROR.throwingException(extensionInterface, beanClass, null, null);
+            ErrorEnums.INTERFACE_CONSISTENCY_ERROR.throwsException(extensionInterface, beanClass, null, null);
         }
     }
 

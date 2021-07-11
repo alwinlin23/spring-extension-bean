@@ -1,4 +1,4 @@
-package space.pgg.spring.extension.error;
+package space.pgg.spring.extension.exception;
 
 import org.springframework.beans.BeansException;
 
@@ -10,7 +10,7 @@ import org.springframework.beans.BeansException;
  */
 public abstract class AbstractExtensionBeanException extends BeansException {
 
-    private static final long serialVersionUID = 840471426142334558L;
+    private static final long serialVersionUID = 1L;
 
     public AbstractExtensionBeanException(String msg) {
         super(msg);

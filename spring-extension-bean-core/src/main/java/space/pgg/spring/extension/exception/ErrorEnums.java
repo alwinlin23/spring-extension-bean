@@ -1,7 +1,9 @@
-package space.pgg.spring.extension.error;
+package space.pgg.spring.extension.exception;
+
+import space.pgg.spring.extension.annotation.ExtensionBean;
 
 /**
- * error enums
+ * Error definition enums
  *
  * @author pgg
  * @since 2020-05-16 21:16:19
@@ -9,7 +11,7 @@ package space.pgg.spring.extension.error;
 public enum ErrorEnums {
 
     /**
-     * extension bean case name not configured
+     * 扩展点注解 {@link ExtensionBean} 未配置 extension bean case name not configured
      */
     CASE_NAME_NOT_CONFIGURED(new AbstractErrorDescription() {
         @Override
@@ -21,7 +23,7 @@ public enum ErrorEnums {
         protected String errorMessage(
             Class<?> extensionInterface, Class<?> extensionClass, String caseName, Throwable cause) {
             return String.format("Extension bean configuration error : "
-                    + "case name not configured in annotation @ExtensionBean on extension class [%s]",
+                + "case name not configured in annotation @ExtensionBean on extension class [%s]",
                 extensionClass.getCanonicalName());
         }
 
@@ -33,12 +35,12 @@ public enum ErrorEnums {
 
         @Override
         protected AbstractExtensionBeanException withException(String errMsg, Throwable cause) {
-            return new ExtensionBeanNotFoundException(errMsg, cause);
+            return new AnnotationConfigErrorException(errMsg, cause);
         }
     }),
 
     /**
-     * extension bean duplicate case name
+     * 扩展点场景名称重复 extension bean duplicate case name
      */
     DUPLICATE_CASE_NAME(new AbstractErrorDescription() {
         @Override
@@ -61,17 +63,17 @@ public enum ErrorEnums {
 
         @Override
         protected AbstractExtensionBeanException withException(String errMsg, Throwable cause) {
-            return null;
+            return new AnnotationConfigErrorException(errMsg, cause);
         }
     }),
 
     /**
-     * property scanBasePackages in @EnableExtension is not set
+     * 通过 @EnableExtension 启用扩展点时, 扫描路径未配置 scanBasePackages in @EnableExtension is not set
      */
-    BASE_PACKAGES_NOT_SET(new AbstractErrorDescription() {
+    SCAN_BASE_PACKAGES_NOT_SET(new AbstractErrorDescription() {
         @Override
         protected String errorCode() {
-            return BASE_PACKAGES_NOT_SET.name();
+            return SCAN_BASE_PACKAGES_NOT_SET.name();
         }
 
         @Override
@@ -93,12 +95,12 @@ public enum ErrorEnums {
     }),
 
     /**
-     * extension bean not found at runtime
+     * 运行时根据场景名称未找到对应的扩展点 extension bean not found at runtime
      */
-    EXTENSION_BEAN_NOT_FOUND_AT_RUNTIME(new AbstractErrorDescription() {
+    EXTENSION_BEAN_NOT_FOUND(new AbstractErrorDescription() {
         @Override
         protected String errorCode() {
-            return EXTENSION_BEAN_NOT_FOUND_AT_RUNTIME.name();
+            return EXTENSION_BEAN_NOT_FOUND.name();
         }
 
         @Override
@@ -123,7 +125,8 @@ public enum ErrorEnums {
     }),
 
     /**
-     * the extension bean has not implemented the extension interface mentioned in the @ExtensionBean
+     * 扩展点一致性错误, 扩展点实现类未实现注解中标称的扩展点接口 the extension bean has not implemented the extension interface mentioned in
+     * the @ExtensionBean
      */
     INTERFACE_CONSISTENCY_ERROR(new AbstractErrorDescription() {
         @Override
@@ -152,6 +155,9 @@ public enum ErrorEnums {
         }
     }),
 
+    /**
+     * 未知错误 unknown error
+     */
     UNKNOWN_ERROR(new AbstractErrorDescription() {
         @Override
         protected String errorCode() {
@@ -161,7 +167,8 @@ public enum ErrorEnums {
         @Override
         protected String errorMessage(Class<?> extensionInterface, Class<?> extensionClass, String caseName,
             Throwable cause) {
-            return String.format("Unknown error : interface[%s]-case[%s]");
+            return String.format("Unknown error : interface[%s]-case[%s]", extensionInterface.getCanonicalName(),
+                caseName);
         }
 
         @Override
@@ -177,15 +184,19 @@ public enum ErrorEnums {
     });
 
     /**
-     * throws specific exception
+     * 抛一个指定的异常 throws a specific exception
      *
-     * @param extensionInterface extension interface
-     * @param extensionClass     extension class
-     * @param caseName           case name
-     * @param cause              error cause
+     * @param extensionInterface
+     *            扩展点接口 extension interface
+     * @param extensionClass
+     *            扩展接口的实现类 the implementation class of the extension interface
+     * @param caseName
+     *            场景名称 case name
+     * @param cause
+     *            错误原因 error cause
      */
-    public void throwingException(Class<?> extensionInterface, Class<?> extensionClass,
-        String caseName, Throwable cause) {
+    public void throwsException(Class<?> extensionInterface, Class<?> extensionClass, String caseName,
+        Throwable cause) {
         throw this.errorDescription.exception(extensionInterface, extensionClass, caseName, cause);
     }
 

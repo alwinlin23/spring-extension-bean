@@ -2,7 +2,6 @@ package space.pgg.spring.extension.beans.a;
 
 import javax.annotation.Resource;
 
-import lombok.Data;
 import space.pgg.spring.extension.annotation.ExtensionBean;
 import space.pgg.spring.extension.beans.SomePlainBean;
 import space.pgg.spring.extension.constant.Constants.Case;

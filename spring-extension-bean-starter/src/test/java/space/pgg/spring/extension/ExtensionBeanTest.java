@@ -1,11 +1,14 @@
 package space.pgg.spring.extension;
 
+import static org.assertj.core.api.Assertions.assertThat;
+
 import javax.annotation.Resource;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringRunner;
+
 import space.pgg.spring.extension.application.TestApplication;
 import space.pgg.spring.extension.beans.SomePlainBean;
 import space.pgg.spring.extension.beans.a.TestExtensionBeanA1;
@@ -16,8 +19,6 @@ import space.pgg.spring.extension.interfaces.A;
 import space.pgg.spring.extension.interfaces.B;
 import space.pgg.spring.extension.route.ExtensionPoint;
 import space.pgg.spring.extension.util.JacksonUtil;
-
-import static org.assertj.core.api.Assertions.assertThat;
 
 /**
  * Test
@@ -42,56 +43,40 @@ public class ExtensionBeanTest {
 
     @Test
     public void simpleUsage() {
-        String output = ExtensionPoint
-            .on(A.class)
-            .of(Case.CASE_1)
-            .sayHi(TO_PGG);
+        String output = ExtensionPoint.on(A.class).of(Case.CASE_1).sayHi(TO_PGG);
         System.out.println(output);
         assertThat(output).isEqualTo(testExtensionBeanA1.sayHi(TO_PGG));
+
     }
 
     @Test
     public void defaultExtensionBean() {
-        String output = ExtensionPoint
-            .on(A.class)
-            .of("SOME MAGIC CASE NAME THAT EVEN DESERVE NO VARIABLE")
-            .sayHi(TO_PGG);
+        String output =
+            ExtensionPoint.on(A.class).of("SOME MAGIC CASE NAME THAT EVEN DESERVE NO VARIABLE").sayHi(TO_PGG);
         System.out.println(output);
         assertThat(output).isEqualTo(testExtensionBeanADefault.sayHi(TO_PGG));
     }
 
     @Test
     public void extensionBeanShouldWorkAsNormalSpringBean_1() {
-        SomePlainBean somePlainBean = (SomePlainBean)ExtensionPoint
-            .on(A.class)
-            .of(Case.CASE_1)
-            .giveMeSomething();
+        SomePlainBean somePlainBean = (SomePlainBean)ExtensionPoint.on(A.class).of(Case.CASE_1).giveMeSomething();
         System.out.println(JacksonUtil.toJson(somePlainBean));
         assertThat(somePlainBean == this.somePlainBean).isTrue();
     }
 
     @Test
     public void extensionBeanShouldWorkAsNormalSpringBean_2() {
-        A anA = ExtensionPoint
-            .on(B.class)
-            .of(Case.CASE_1)
-            .ownsTheA();
+        A anA = ExtensionPoint.on(B.class).of(Case.CASE_1).ownsTheA();
         System.out.println(JacksonUtil.toJson(anA));
         assertThat(anA == this.testExtensionBeanA1).isTrue();
     }
 
     @Test
     public void someCasesCouldRouteToTheSameImplementation() {
-        String outputForCase1 = ExtensionPoint
-            .on(B.class)
-            .of(Case.CASE_1)
-            .sayBye(TO_PGG);
+        String outputForCase1 = ExtensionPoint.on(B.class).of(Case.CASE_1).sayBye(TO_PGG);
         System.out.println(outputForCase1);
 
-        String outputForCase2 = ExtensionPoint
-            .on(B.class)
-            .of(Case.CASE_2)
-            .sayBye(TO_PGG);
+        String outputForCase2 = ExtensionPoint.on(B.class).of(Case.CASE_2).sayBye(TO_PGG);
         System.out.println(outputForCase2);
 
         assertThat(outputForCase1).isEqualTo(outputForCase2);
@@ -99,16 +84,10 @@ public class ExtensionBeanTest {
 
     @Test
     public void compoundExtensionBeanCouldBeTheImplementationOfSeveralInterface() {
-        String outputA = ExtensionPoint
-            .on(A.class)
-            .of(Case.CASE_COMPOUND)
-            .sayHi(TO_PGG);
+        String outputA = ExtensionPoint.on(A.class).of(Case.CASE_COMPOUND).sayHi(TO_PGG);
         System.out.println(outputA);
 
-        String outputB = ExtensionPoint
-            .on(B.class)
-            .of(Case.CASE_COMPOUND)
-            .sayBye(TO_PGG);
+        String outputB = ExtensionPoint.on(B.class).of(Case.CASE_COMPOUND).sayBye(TO_PGG);
         System.out.println(outputB);
 
         String outputCompoundA = compoundExtensionBean.sayHi(TO_PGG);

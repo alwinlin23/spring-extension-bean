@@ -3,6 +3,7 @@ package space.pgg.spring.extension.beans.complex;
 import javax.annotation.Resource;
 
 import space.pgg.spring.extension.annotation.ExtensionBean;
+import space.pgg.spring.extension.annotation.ExtensionBeans;
 import space.pgg.spring.extension.beans.BaseBean;
 import space.pgg.spring.extension.beans.SomePlainBean;
 import space.pgg.spring.extension.constant.Constants.Case;
@@ -15,8 +16,8 @@ import space.pgg.spring.extension.interfaces.B;
  * @author pgg
  * @since 2020-05-30 13:07:36
  */
-@ExtensionBean(forInterface = A.class, forCase = Case.CASE_COMPOUND)
-@ExtensionBean(forInterface = B.class, forCase = Case.CASE_COMPOUND)
+@ExtensionBeans({@ExtensionBean(forInterface = A.class, forCase = Case.CASE_COMPOUND),
+    @ExtensionBean(forInterface = B.class, forCase = Case.CASE_COMPOUND)})
 public class CompoundExtensionBean extends BaseBean implements A, B {
 
     @Resource

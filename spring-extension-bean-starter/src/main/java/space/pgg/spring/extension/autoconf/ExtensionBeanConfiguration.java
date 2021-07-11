@@ -3,14 +3,13 @@ package space.pgg.spring.extension.autoconf;
 import org.springframework.beans.factory.support.BeanDefinitionRegistry;
 import org.springframework.context.ResourceLoaderAware;
 import org.springframework.context.annotation.ClassPathBeanDefinitionScanner;
-import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.ImportBeanDefinitionRegistrar;
 import org.springframework.core.annotation.AnnotationAttributes;
 import org.springframework.core.io.ResourceLoader;
 import org.springframework.core.type.AnnotationMetadata;
 import space.pgg.spring.extension.annotation.EnableExtensionBean;
 import space.pgg.spring.extension.conf.ExtensionBeanScanner;
-import space.pgg.spring.extension.error.ErrorEnums;
+import space.pgg.spring.extension.exception.ErrorEnums;
 
 /**
  * ExtensionBean configuration
@@ -18,7 +17,6 @@ import space.pgg.spring.extension.error.ErrorEnums;
  * @author pgg
  * @since 2020-05-25 23:43:56
  */
-@ComponentScan(ExtensionBeanConfiguration.BOOTSTRAP_BASE_PACKAGE)
 public class ExtensionBeanConfiguration implements ImportBeanDefinitionRegistrar, ResourceLoaderAware {
 
     public static final String BOOTSTRAP_BASE_PACKAGE = "space.pgg.spring.extension";
@@ -33,7 +31,7 @@ public class ExtensionBeanConfiguration implements ImportBeanDefinitionRegistrar
             annotationMetadata.getAnnotationAttributes(EnableExtensionBean.class.getName()));
         String[] extensionBeanBasePackages = attributes.getStringArray(EnableExtensionBean.BASE_PACKAGES);
         if (extensionBeanBasePackages == null || extensionBeanBasePackages.length == 0) {
-            ErrorEnums.BASE_PACKAGES_NOT_SET.throwingException(null, null, null, null);
+            ErrorEnums.SCAN_BASE_PACKAGES_NOT_SET.throwsException(null, null, null, null);
         }
         // 1. scan @ExtensionBean
         ExtensionBeanScanner extensionBeanScanner = new ExtensionBeanScanner(beanDefinitionRegistry);

@@ -1,4 +1,4 @@
-package space.pgg.spring.extension.error;
+package space.pgg.spring.extension.exception;
 
 /**
  * Extension bean not found exception
@@ -8,7 +8,7 @@ package space.pgg.spring.extension.error;
  */
 public class ExtensionBeanNotFoundException extends AbstractExtensionBeanException {
 
-    private static final long serialVersionUID = 6501376668704817962L;
+    private static final long serialVersionUID = 1L;
 
     public ExtensionBeanNotFoundException(String msg) {
         super(msg);

@@ -11,7 +11,7 @@ import org.springframework.context.ApplicationContextAware;
 import org.springframework.stereotype.Component;
 import space.pgg.spring.extension.annotation.ExtensionBean;
 import space.pgg.spring.extension.conf.ExtensionBeanAlias;
-import space.pgg.spring.extension.error.ErrorEnums;
+import space.pgg.spring.extension.exception.ErrorEnums;
 
 /**
  * Extension point
@@ -25,15 +25,27 @@ public class ExtensionPoint implements ApplicationContextAware {
     private static ApplicationContext applicationContext;
 
     //TODO 2020/5/30 2:38 上午 pgg application.properties
+    /**
+     * 缓存一波
+     * cache extension bean up
+     */
     @SuppressWarnings("rawtypes")
     private static final Cache<String, ExtensionBeanBroker> BROKER_CACHE =
-        Caffeine.newBuilder().maximumSize(1024).build();
+            Caffeine.newBuilder().maximumSize(1024).build();
 
     /**
-     * specify the extension interface
+     * 找个代理包一下
+     * 1. 走缓存提高性能
+     * 2. 吃颗语法糖, 写起来更流程
+     * <p>
+     * wrap with a broker
+     * 1. take the advantage of cache
+     * 2. syntactic sugar with fluent api
      *
-     * @param extensionInterface extension interface
-     * @param <T>                extension bean type
+     * @param extensionInterface 扩展点接口
+     *                           extension interface
+     * @param <T>                扩展点接口对应的类型
+     *                           extension bean type
      * @return extension bean broker
      */
     @SuppressWarnings("unchecked")
@@ -65,11 +77,11 @@ public class ExtensionPoint implements ApplicationContextAware {
                 if (!applicationContext.containsBean(alias)) {
                     alias = ExtensionBeanAlias.of(extensionInterface, ExtensionBean.DEFAULT_CASE);
                 }
-                bean = (T)applicationContext.getBean(alias);
+                bean = (T) applicationContext.getBean(alias);
             } catch (NoSuchBeanDefinitionException e) {
-                ErrorEnums.EXTENSION_BEAN_NOT_FOUND_AT_RUNTIME.throwingException(extensionInterface, null, caseName, e);
+                ErrorEnums.EXTENSION_BEAN_NOT_FOUND.throwsException(extensionInterface, null, caseName, e);
             } catch (Throwable e) {
-                ErrorEnums.UNKNOWN_ERROR.throwingException(extensionInterface, null, caseName, e);
+                ErrorEnums.UNKNOWN_ERROR.throwsException(extensionInterface, null, caseName, e);
             }
             return bean;
         }

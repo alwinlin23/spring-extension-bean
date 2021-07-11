@@ -1,10 +1,6 @@
 package space.pgg.spring.extension.annotation;
 
-import java.lang.annotation.ElementType;
-import java.lang.annotation.Repeatable;
-import java.lang.annotation.Retention;
-import java.lang.annotation.RetentionPolicy;
-import java.lang.annotation.Target;
+import java.lang.annotation.*;
 
 /**
  * Annotation Extension Bean
@@ -33,7 +29,7 @@ public @interface ExtensionBean {
     boolean isDefault() default false;
 
     /**
-     * wired default case name to avoid unnecessary case name conflictions
+     * default case name (weired enough to avoid case name conflictions)
      */
     String DEFAULT_CASE = "#_DEFAULT_CASE_#";
 }
