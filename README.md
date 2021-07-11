@@ -23,8 +23,6 @@ public interface A {
 ### step 2 : 写个普通平凡的实现 ( make a normal implementation )
 
 ```java
-
-@ExtensionBean(forInterface = A.class, isDefault = true)
 public class TestExtensionBeanADefault extends AbstractExtensionBeanA {
 
   @Resource
